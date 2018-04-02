@@ -1,0 +1,12 @@
+.container {
+    text-align: center;
+}
+img {
+    
+    display: inline-block;
+}
+.crystal-image {
+    
+    max-width: 100%;
+    padding: 20px;
+}

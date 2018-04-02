@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crystal Game</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Crystal Game</h1>
+            <p class="lead">Click on any of the crystals to get points. Each Crystal differs from the amount of points. Win by getting the
+                exact amount of points specified below. Lose by going over. A new random value will be set to aim for each
+                time you win or lose. Crystal values also change for each time you win or lose.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>GOAL:</h2>
+        <span id="goal">00</span>
+    </div>
+
+    <!-- <div class="container">
+        <div class="row">
+            <div class="col-3">
+                    <img id = "crys1" src = "assets/images/crystal-pic.jpg">
+            </div>
+            <div class="col-3">
+                    <img id = "crys2" src = "assets/images/crystal-pic.jpg">
+            </div>
+            <div class="col-3">
+                    <img id = "crys3" src = "assets/images/crystal-pic.jpg">
+            </div>
+            <div class="col-3">
+                    <img id = "crys4" src = "assets/images/crystal-pic.jpg">
+            </div>
+        </div>
+    </div> -->
+    <div class="container">
+            <div class="row">
+                <div class="col">
+                        <div id="crystals"></div>    
+                </div>
+            </div>
+        </div>
+    
+
+    <div class="container">
+        <h3>CURRENT POINTS:</h3>
+        <span id="current-points">00</span>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h5>WINS:</h5>
+                <span id="wins">0</span>
+            </div>
+            <div class="col-6">
+                <h5>LOSSES:</h5>
+                <span id="losses">0</span>
+            </div>
+        </div>
+    </div>
+    
+    
+        
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+        var goal = Math.floor(Math.random() * 101) + 19;
+        //console.log(goal);
+        $('#goal').text(goal);
+        
+        var current = 0
+        var wins = 0
+        var losses = 0
+
+        var crystals = $("#crystals");
+        
+        var crys1 = Math.floor(Math.random() * 12) + 1;
+        var crys2 = Math.floor(Math.random() * 12) + 1;
+        var crys3 = Math.floor(Math.random() * 12) + 1;
+        var crys4 = Math.floor(Math.random() * 12) + 1;
+
+        var crystalsValue = [crys1, crys2, crys3, crys4];
+        //console.log(crystalsValue);
+       
+        for (var i = 0; i < crystalsValue.length; i++) {
+            console.log(crystalsValue[i]);
+            var imageCrystal = $("<img>");
+            imageCrystal.addClass("crystal-image");
+            imageCrystal.attr("src", "http://via.placeholder.com/100x75");
+            imageCrystal.attr("crystalvalue", crystalsValue[i]);
+            crystals.append(imageCrystal);    
+        }
+
+        crystals.on("click", ".crystal-image", function() {
+            var imageValue = ($(this).attr("crystalvalue"));
+            //console.log(imageValue);
+            imageValue = parseInt(imageValue);
+            current += imageValue;
+            $("#current-points").text(current);
+                if (current === goal){
+                    wins ++;
+                    goal = Math.floor(Math.random() * 101) + 19;
+                    current = 0;
+                    //How do I get new attributes on the images, (random numbers), loop??? 
+                    //var crystalArr = crystalsValue;
+                       // for (var i = 0; i < crystalArr; i++){
+                            
+                        //this is replacing all with one randome number
+                        var newCrystalValue = Math.floor(Math.random() * 12) + 1;
+                        $(".crystal-image").attr("crystalvalue", newCrystalValue);
+                        
+
+                    $("#wins").text(wins);
+                    $("#goal").text(goal);
+                    $("#current-points").text(current);
+                } 
+                if (current > goal){
+                    losses ++;
+                    goal = Math.floor(Math.random() * 101) + 19;
+                    current = 0;
+
+                    ///////////
+                    
+
+                    $("#losses").text(losses);
+                    $("#goal").text(goal);
+                    $("#current-points").text(current);
+                }
+        
+        });
+        
+        
+        
+        // for (var i = 0; i < crystalsValue.length; i++) {
+        //     var imgArr = ["#crys1", "#crys2", "#crys3", "#crys4"];
+        //     $(imgArr).attr("values", crystalsValue[i]);
+        // }
+        
+        // $("#crys1").attr("data-crys1value", crys1);
+
+        // $("#crys1").click(function() {
+        //    var crys1value = ($(this).attr("data-crys1value"));
+        //    current += crys1value;
+        //    $("current-points").text(current);
+        //     console.log(crys1value);
+        // });
+
+        
+      
+
+    </script>
+
+
+
+</body>
+
+</html>
